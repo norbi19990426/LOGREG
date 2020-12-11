@@ -25,7 +25,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql= "CREATE TABLE " + ACCOUNT_TABLE + " (" +
+        String sql = "CREATE TABLE " + ACCOUNT_TABLE + " (" +
                 COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COL_EMAIL + " VARCHAR(255) NOT NULL, " +
                 COL_FELHNEV + " VARCHAR(255) NOT NULL, " +
@@ -42,8 +42,8 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean dataRecording(String email, String felhnev, String jelszo, String teljesnev){
-        SQLiteDatabase db =  this.getWritableDatabase();
+    public boolean dataRecording(String email, String felhnev, String jelszo, String teljesnev) {
+        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COL_EMAIL, email);
         values.put(COL_FELHNEV, felhnev);
@@ -55,10 +55,27 @@ public class DBHelper extends SQLiteOpenHelper {
         return result != -1;
     }
 
-    public Cursor dataQuery(){
+    public boolean loginCheck(String felhnev, String jelszo) {
         SQLiteDatabase db = this.getReadableDatabase();
-        return db.query(ACCOUNT_TABLE, new String[]{COL_ID, COL_EMAIL, COL_FELHNEV, COL_JELSZO, COL_TELJESNEV},
-                null,null,null, null, null);
-        //db.rawQuery("SELECT * FROM " + ACCOUNT_TABLE + " WHERE felhnev = ? OR email = ? ");
+        Cursor result = db.rawQuery("SELECT COUNT(*) FROM " + ACCOUNT_TABLE + " WHERE " + COL_FELHNEV + " = ? OR " + COL_EMAIL + " = ? AND " + COL_JELSZO + " = ?"
+                , new String[]{felhnev, jelszo});
+        result.moveToFirst();
+        return result.getInt(0) == 1;
     }
+
+    public Cursor dataQuery() {
+        SQLiteDatabase db = this.getReadableDatabase();
+         return db.query(ACCOUNT_TABLE, new String[]{COL_TELJESNEV},
+               null,null,null, null, null);
+        //return db.rawQuery("SELECT " + COL_TELJESNEV + " FROM " + ACCOUNT_TABLE);
+    }
+
+    /*public Cursor idRequest(String felhnev, String jelszo) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("SELECT " + COL_ID + " FROM " + ACCOUNT_TABLE + " WHERE " + COL_FELHNEV + " = ? OR " + COL_EMAIL + " = ? AND " + COL_JELSZO + " = ?",
+                new String[]{felhnev, jelszo});
+    }
+
+     */
 }
+
