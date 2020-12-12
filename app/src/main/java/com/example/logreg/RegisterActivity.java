@@ -30,19 +30,19 @@ public class RegisterActivity extends AppCompatActivity {
         String teljesNev = et_teljesNev.getText().toString().trim();
 
         if (email.isEmpty()) {
-            Toast.makeText(this, "E-mail cím megadása kötelező!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Minden mező megadása kötelező!", Toast.LENGTH_SHORT).show();
             return;
         }
         if (felhnev.isEmpty()) {
-            Toast.makeText(this, "Felhasználónév megadása kötelező!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Minden mező megadása kötelező!", Toast.LENGTH_SHORT).show();
             return;
         }
         if (jelszo.isEmpty()) {
-            Toast.makeText(this, "Jelszó megadása kötelező!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Minden mező megadása kötelező!", Toast.LENGTH_SHORT).show();
             return;
         }
         if (teljesNev.isEmpty()) {
-            Toast.makeText(this, "Teljes név megadása kötelező!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Minden mező megadása kötelező!", Toast.LENGTH_SHORT).show();
             return;
         }
         boolean successful = database.dataRecording(email, felhnev, jelszo, teljesNev);

@@ -58,24 +58,21 @@ public class DBHelper extends SQLiteOpenHelper {
     public boolean loginCheck(String felhnev, String jelszo) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor result = db.rawQuery("SELECT COUNT(*) FROM " + ACCOUNT_TABLE + " WHERE " + COL_FELHNEV + " = ? OR " + COL_EMAIL + " = ? AND " + COL_JELSZO + " = ?"
-                , new String[]{felhnev, jelszo});
+                , new String[]{felhnev,felhnev, jelszo});
         result.moveToFirst();
         return result.getInt(0) == 1;
     }
 
-    public Cursor dataQuery() {
+    public Cursor idQuery(String felhnev, String jelszo) {
         SQLiteDatabase db = this.getReadableDatabase();
-         return db.query(ACCOUNT_TABLE, new String[]{COL_TELJESNEV},
-               null,null,null, null, null);
-        //return db.rawQuery("SELECT " + COL_TELJESNEV + " FROM " + ACCOUNT_TABLE);
+        return db.rawQuery("SELECT " + COL_ID + " FROM " + ACCOUNT_TABLE + " WHERE " + COL_FELHNEV + " = ? OR " + COL_EMAIL + " = ? AND " + COL_JELSZO + " = ?"
+                , new String[]{felhnev,felhnev, jelszo});
     }
 
-    /*public Cursor idRequest(String felhnev, String jelszo) {
+    public Cursor idRequest(String id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        return db.rawQuery("SELECT " + COL_ID + " FROM " + ACCOUNT_TABLE + " WHERE " + COL_FELHNEV + " = ? OR " + COL_EMAIL + " = ? AND " + COL_JELSZO + " = ?",
-                new String[]{felhnev, jelszo});
+        return db.rawQuery("SELECT " + COL_TELJESNEV + " FROM " + ACCOUNT_TABLE + " WHERE " + COL_ID + " = ? ",
+                new String[]{id});
     }
-
-     */
 }
 
