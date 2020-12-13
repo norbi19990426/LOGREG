@@ -56,9 +56,6 @@ public class RegisterActivity extends AppCompatActivity {
             btn_regisztracio.setEnabled(false);
             return;
         }
-        //if (!teljesNev){
-
-        //}
         boolean successful = database.dataRecording(email, felhnev, jelszo, teljesNev);
         if(successful){
             Toast.makeText(this, "Sikeres regisztráció!", Toast.LENGTH_SHORT).show();
