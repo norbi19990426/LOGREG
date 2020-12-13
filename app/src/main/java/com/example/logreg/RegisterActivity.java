@@ -3,6 +3,7 @@ package com.example.logreg;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -29,22 +30,35 @@ public class RegisterActivity extends AppCompatActivity {
         String jelszo = et_jelszo.getText().toString().trim();
         String teljesNev = et_teljesNev.getText().toString().trim();
 
+
         if (email.isEmpty()) {
             Toast.makeText(this, "Minden mező megadása kötelező!", Toast.LENGTH_SHORT).show();
+            btn_regisztracio.setEnabled(false);
             return;
         }
         if (felhnev.isEmpty()) {
             Toast.makeText(this, "Minden mező megadása kötelező!", Toast.LENGTH_SHORT).show();
+            btn_regisztracio.setEnabled(false);
             return;
         }
         if (jelszo.isEmpty()) {
             Toast.makeText(this, "Minden mező megadása kötelező!", Toast.LENGTH_SHORT).show();
+            btn_regisztracio.setEnabled(false);
             return;
         }
         if (teljesNev.isEmpty()) {
             Toast.makeText(this, "Minden mező megadása kötelező!", Toast.LENGTH_SHORT).show();
+            btn_regisztracio.setEnabled(false);
             return;
         }
+        if (!email.contains("@")){
+            Toast.makeText(this, "Nem megfelelő E-mail formátum!", Toast.LENGTH_SHORT).show();
+            btn_regisztracio.setEnabled(false);
+            return;
+        }
+        //if (!teljesNev){
+
+        //}
         boolean successful = database.dataRecording(email, felhnev, jelszo, teljesNev);
         if(successful){
             Toast.makeText(this, "Sikeres regisztráció!", Toast.LENGTH_SHORT).show();

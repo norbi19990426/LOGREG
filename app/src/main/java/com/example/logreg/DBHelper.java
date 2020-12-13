@@ -74,5 +74,6 @@ public class DBHelper extends SQLiteOpenHelper {
         return db.rawQuery("SELECT " + COL_TELJESNEV + " FROM " + ACCOUNT_TABLE + " WHERE " + COL_ID + " = ? ",
                 new String[]{id});
     }
+
 }
 
